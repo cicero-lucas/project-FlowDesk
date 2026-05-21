@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: flowdesk-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: flowdesk
+      MYSQL_USER: flowdesk
+      MYSQL_PASSWORD: flowdesk123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "flowdesk", "-pflowdesk123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flowdesk-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: flowdesk-backend
+    environment:
+      DB_USERNAME: flowdesk
+      DB_PASSWORD: flowdesk123
+      JWT_SECRET: flowdesk-super-secret-key-2024-must-be-at-least-256-bits-long
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/flowdesk?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - flowdesk-net
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: flowdesk-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - flowdesk-net
+
+volumes:
+  mysql_data:
+
+networks:
+  flowdesk-net:
+    driver: bridge
