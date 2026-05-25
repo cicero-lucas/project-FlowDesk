@@ -1,6 +1,15 @@
 # FlowDesk 🎯
 
 Sistema corporativo de gerenciamento de chamados técnicos internos, desenvolvido com **Java Spring Boot** e **Angular**.
+<div style="display:flex; gap:6px; justify-content:center;">
+  <img src="https://img.shields.io/badge/Java-007396?logo=java&logoColor=white" height="24" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=springboot&logoColor=white" height="24" />
+  <img src="https://img.shields.io/badge/Maven-C71A36?logo=apachemaven&logoColor=white" height="24" />
+  <img src="https://img.shields.io/badge/Angular-DD0031?logo=angular&logoColor=white" height="24" />
+  <img src="https://img.shields.io/badge/JWT-000000?logo=jsonwebtokens&logoColor=white" height="24" />
+  <img src="https://img.shields.io/badge/BCrypt-4B8BBE?logo=security&logoColor=white" height="24" />
+  <img src="https://img.shields.io/badge/MySQL-00758F?logo=mysql&logoColor=white" height="24" />
+</div>
 
 ---
 
